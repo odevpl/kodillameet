@@ -1,7 +1,5 @@
-//import styles from './index.module.scss'
-
-import Admin from '../../modules/Admin/Admin';
-import User from '../../modules/User/User';
+import Admin from '../Admin/Admin';
+import User from '../User/User';
 
 const Root = () => {
 
@@ -13,9 +11,9 @@ const Root = () => {
       <div>
 
         { windowHash == 1 ? ( 
-        <Admin />
+          <Admin />
         ) : (
-        <User />
+          <User />
         )}
 
       </div>
