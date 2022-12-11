@@ -11,13 +11,13 @@ const Admin = () => {
         <div className="container" id="1">
           
           <aside className="sidebar">
-            <div className="sidebar_content">
-              <FontAwesomeIcon icon={faCalendarDays} className="sidebar_icon"/>
+            <div className="sidebar-content">
+              <FontAwesomeIcon icon={faCalendarDays} className="sidebar-icon"/>
               <h3>Admin</h3>
             </div>
           </aside>
 
-          <section className="admin_content">
+          <section className="admin-content">
             <div className="row">
               <UsersBox />
               <MessagesBox />

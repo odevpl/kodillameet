@@ -1,7 +1,7 @@
 const CalendarBox = () => {
   
     return ( 
-        <div className="calendar_box">
+        <div className="calendar-box">
             <h1>Kalendarz</h1>
             <div className="underline"></div>
         </div>

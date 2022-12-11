@@ -1,10 +1,10 @@
 const MessagesBox = () => {
   
     return ( 
-        <div className="messages_box">
+        <div className="message-box">
             <h1>Komunikaty</h1>
             <div className="underline"></div>
-            <div className="message_div">
+            <div className="message">
                 <p>Nie ma mnie, zarobiony jestem.</p>
             </div>
             <button>Edycja</button>
