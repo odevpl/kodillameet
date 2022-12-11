@@ -2,9 +2,11 @@ import "./App.css";
 import "./styles/global.css"
 import Root from "./page/Root/Root";
 
-function App() {
+const App = () => {
   // Tu providery wrzuć
-  return <Root />;
+  return ( 
+      <Root />
+  )
 }
 
 export default App;

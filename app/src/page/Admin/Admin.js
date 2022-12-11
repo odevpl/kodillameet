@@ -5,7 +5,7 @@ import MessagesBox from '../../modules/MessagesBox/MessagesBox';
 import CalendarBox from '../../modules/CalendarBox/CalendarBox';
 
 const Admin = () => {
-  
+
     return ( 
       <main>
         <div className="container" id="1">
