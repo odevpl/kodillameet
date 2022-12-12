@@ -1,4 +1,3 @@
-@import './settings.scss';
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500");
 
@@ -10,15 +9,15 @@ body {
 
 h1 {
     font-size: 18px;
-    color: $color-white;
-    font-weight: 600;
+    color: white;
+    font-weight: 700;
     margin: 0;
     letter-spacing: 1px;
 }
 
 p {
     font-size: 14px;
-    color: $color-white;
+    color: white;
 }
 
 button {
@@ -26,10 +25,11 @@ button {
     height: 40px;
     border: none;
     border-radius: 15px;
-    background-color: $color-orange;
+    background-color: #f6502c;
     font-size: 14px;
-    color: $color-white;
-    &:hover {
-        background-color: #f62c4b;
-    }
+    color: white;
+}
+
+button:hover {
+    background-color: #f62c4b;
 }
