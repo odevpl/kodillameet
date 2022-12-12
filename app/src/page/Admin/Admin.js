@@ -4,7 +4,13 @@ import UsersBox from '../../modules/UsersBox/UsersBox';
 import MessagesBox from '../../modules/MessagesBox/MessagesBox';
 import CalendarBox from '../../modules/CalendarBox/CalendarBox';
 
+import CalendarContext from '../providers/CalendarProvider';
+import { useContext } from 'react';
+
 const Admin = () => {
+
+    const { item } = useContext(CalendarContext);
+    console.log('item is ', item)
 
     return ( 
       <main>
