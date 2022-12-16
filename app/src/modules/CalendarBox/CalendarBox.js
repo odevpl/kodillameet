@@ -7,15 +7,14 @@ const CalendarBox = () => {
 
     const weekList = calendarData.map((item, weekIndex) => 
         <div className="day-column">
-            <h2 key={weekIndex}>{item.day}</h2>
-            
+            <h2 key={weekIndex}>{item.dayName}</h2>
             {item.hours.map((hour, hourIndex) => 
                 <div key={hourIndex} className="hour">{hour}
                 </div>         
             )}
         </div>
     )
-    
+
     return ( 
         <div className="calendar-container">
             <h1>Kalendarz</h1>

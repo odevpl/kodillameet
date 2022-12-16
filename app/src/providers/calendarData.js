@@ -1,6 +1,7 @@
 export const calendarData = [
     {
-        day: 'Poniedziałek',
+        dayId: 1,
+        dayName: 'Poniedziałek',
         hours: [
             "7:00",
             "7:45",
@@ -26,7 +27,8 @@ export const calendarData = [
         ]
     }, 
     {
-        day: 'Wtorek',
+        dayId: 2,
+        dayName: 'Wtorek',
         hours: [
             "7:00",
             "7:45",
@@ -52,7 +54,8 @@ export const calendarData = [
         ]
     },
     {
-        day: 'Środa',
+        dayId: 3,
+        dayName: 'Środa',
         hours: [
             "7:00",
             "7:45",
@@ -78,7 +81,8 @@ export const calendarData = [
         ]
     },
     {
-        day: 'Czwartek',
+        dayId: 4, 
+        dayName: 'Czwartek',
         hours: [
             "7:00",
             "7:45",
@@ -104,7 +108,8 @@ export const calendarData = [
         ]
     },
     {
-        day: 'Piątek',
+        dayId: 5,
+        dayName: 'Piątek',
         hours: [
             "7:00",
             "7:45",
@@ -130,7 +135,8 @@ export const calendarData = [
         ]
     },
     {
-        day: 'Sobota',
+        dayId: 6,
+        dayName: 'Sobota',
         hours: [
             "7:00",
             "7:45",
@@ -156,7 +162,8 @@ export const calendarData = [
         ]
     },
     {
-        day: 'Niedziela',
+        dayId: 7,
+        dayName: 'Niedziela',
         hours: [
             "7:00",
             "7:45",
