@@ -26,6 +26,7 @@
 
 .admin-content {
   width: 100%;
+  height: 100%;
   background-color:  #f3f1ef;
 }
 
@@ -43,7 +44,7 @@
 }
 
 .user-box h1 {
-  margin: 10px 0 0 20px;
+  margin: 20px 0 0 20px;
 }
 
 .underline {
@@ -66,7 +67,7 @@
 }
 
 .user-buttons-div {
-  margin: 10px 20px;
+  margin: 10px 20px 20px;
   color: white;
   display: flex;
   align-items: center;
@@ -85,13 +86,13 @@
 }
 
 .message-box h1 {
-  margin: 10px 0 0 20px;
+  margin: 20px 0 0 20px;
 }
 
 .message {
   background-color: #0f1322;
-  padding: 10px 0;
-  margin: 10px 20px 10px 20px;
+  padding: 5px 0;
+  margin: 15px 20px 15px 20px;
   border-radius: 15px;
 }
 
@@ -100,21 +101,87 @@
 }
 
 .message-box button {
-  margin: 0px 20px 10px 20px;
+  margin: 0px 20px 18px 20px;
 }
 
 /* calendar */
 
-.calendar-box {
+.calendar-container {
   flex-grow: 1;
-  height: 300px;
+  height: 100%;
   background-color: #dabda9;
   margin: 0px 40px 20px 40px;
   border-radius: 15px;
 }
 
-.calendar-box h1{
-  padding: 10px 0 0 20px;
+.calendar-container h1{
+  padding: 20px 0 0 20px;
+}
+
+.calendar-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 20px;
+}
+
+.calendar-content h1 {
+  margin: 10px 0px 20px 0px;
+  padding: 0px;
+}
+
+.calendar-content button {
+  margin: 0 auto 20px;
+}
+
+.calendar-days {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.day-column {
+  width: 10vw;
+}
+
+.day-column h2 {
+  font-size: 16px;
+}
+
+.day-column .hour {
+  display: flex;
+  background-color: #e6dcd3;
+  height: 30px;
+  margin: 2px 5px;
+  padding: 9px 0px 1px;
+  justify-content: center;
+  position: relative;
+}
+
+.day-column .hour p {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin: 0px;
+  color: black;
+}
+
+.day-column .hour:hover {
+  background-color: #f6502c;
+  color: white;
+}
+
+.day-column .hour:active {
+  background-color: #f6502c;
+  color: white;
+}
+
+.day-column .hour:hover p {
+  color: white;
+}
+
+.day-column .hour:active p {
+  color: white;
 }
 
 /* modal */
@@ -185,6 +252,14 @@
   .message-box {
     flex-grow: 1;
     margin: 20px 40px;
+  }
+
+  .day-column h2 {
+    font-size: 14px;
+  }
+
+  .day-column .hour p {
+    font-size: 12px;
   }
 
 }
