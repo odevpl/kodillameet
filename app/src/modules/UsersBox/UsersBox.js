@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser} from '@fortawesome/free-solid-svg-icons';
+import Modal from '../Modal/Modal';
 
-const UsersBox = () => {
+const UsersBox = (props) => {
   
     return ( 
         <div className="user-box">
@@ -12,9 +14,9 @@ const UsersBox = () => {
                 <p>Aktualna liczba kursantów: 54</p>
             </div>
             <div className="user-buttons-div">
-                <button>Dodaj kursanta</button>
-                <button>Umów lekcję</button>
-                <button>Pokaz logi</button>
+                <button onClick={props.action}>Dodaj kursanta</button>
+                <button onClick={props.action}>Umów lekcję</button>
+                <button onClick={props.action}> Pokaz logi</button>
             </div>
         </div>
     )

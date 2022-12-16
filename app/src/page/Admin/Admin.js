@@ -1,10 +1,18 @@
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import UsersBox from '../../modules/UsersBox/UsersBox';
 import MessagesBox from '../../modules/MessagesBox/MessagesBox';
 import CalendarBox from '../../modules/CalendarBox/CalendarBox';
+import Modal from '../../modules/Modal/Modal';
 
 const Admin = () => {
+
+    const [modalState, setModalState] = useState(false)
+
+    const OpenModal = () => {
+        setModalState(!modalState)
+    }
 
     return ( 
       <main>
@@ -19,11 +27,15 @@ const Admin = () => {
 
           <section className="admin-content">
             <div className="row">
-              <UsersBox />
+              <UsersBox action={OpenModal}/>
               <MessagesBox />
             </div>
             <CalendarBox />
           </section>
+
+          <Modal toggle={modalState} action={OpenModal}>
+            Hello
+          </Modal>
 
         </div>  
       </main>
