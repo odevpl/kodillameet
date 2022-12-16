@@ -6,12 +6,7 @@ import MessagesBox from '../../modules/MessagesBox/MessagesBox';
 import CalendarBox from '../../modules/CalendarBox/CalendarBox';
 import Modal from '../../modules/Modal/Modal';
 
-import CalendarContext from '../../providers/CalendarProvider';
-import { useContext } from 'react';
-
 const Admin = () => {
-
-    // const { item } = useContext(CalendarContext) - useContext test
 
     const [modalState, setModalState] = useState(false)
 
