@@ -1,27 +1,31 @@
 import CalendarContext from "../../providers/CalendarProvider";
 import { useContext } from "react";
 import { useState } from "react";
-import { useCallback } from "react";
 
 const CalendarBox = () => {
   
-    const { calendarData } = useContext(CalendarContext);
+    const { calendarData, updateIsSelected } = useContext(CalendarContext);
 
-    const [reservedHour, setReservedHour] = useState('');
-    const [reservedDay, setReservedDay] = useState('');
+    const [ day, setDay ] = useState('');
+    const [ hour, setHour ] = useState('');
+    const [ hourId, setHourId ] = useState('');
+    const [ isSelected, setIsSelected ] = useState(false);
 
-    const handleSetReservedDay = (e, day) => {
-        e.preventDefault()
-        setReservedDay(day)
+    const handleHourClick = (e, day, hour, hourId) => {
+        e.preventDefault();
+        setDay(day)
+        setHour(hour)
+        setHourId(hourId)
+        setIsSelected(!isSelected)
+        updateIsSelected(day, hourId, isSelected)
     }
 
-    const handleSetReservedHour = (e, hour) => {
-        e.preventDefault()
-        setReservedHour(hour)
-    }
-
-    console.log('reserved day is ', reservedDay)
-    console.log('reserved hour is ', reservedHour)
+    /*
+    console.log('isSelected is ', isSelected)
+    console.log('day is', day)
+    console.log('hour is', hour)
+    console.log('hourId is', hourId)
+    */
 
     return ( 
         <div className="calendar-container">
@@ -33,21 +37,21 @@ const CalendarBox = () => {
                     {calendarData.map((item, weekIndex) => 
                         <div className="day-column" >
                             <h2 key={weekIndex}>{item.dayName}</h2>
-                            {item.hours.map((hour, hourIndex) => 
-                                <div 
-                                    key={hourIndex} 
+                            {item.hours.map((hour, hourIndex) =>
+                                <button 
+                                    key={hourIndex}
                                     onClick={(e) => {
-                                        handleSetReservedDay(e, item.dayName)
-                                        handleSetReservedHour(e, hour)
-                                    }}  
+                                        handleHourClick(e, item.dayName, hour.hour, hour.hourId)
+                                    }}
                                     className=   
                                     {`hour ${
-                                        reservedHour === hour && 
-                                        reservedDay === item.dayName
-                                        ? "active" : ""}`}       
-                                >{hour}
-                                </div>       
-                            )}
+                                        day === item.dayName &&
+                                        hourId === hour.hourId &&
+                                        isSelected
+                                        ? "active" : ""}`} 
+                                    >{hour.hour}
+                                </button>           
+                            )}                    
                         </div>
                     )}  
                 </div>
