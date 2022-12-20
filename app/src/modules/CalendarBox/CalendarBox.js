@@ -4,28 +4,11 @@ import { useState } from "react";
 
 const CalendarBox = () => {
   
-    const { calendarData, updateIsSelected } = useContext(CalendarContext);
+    const { calendarData } = useContext(CalendarContext);
 
-    const [ day, setDay ] = useState('');
-    const [ hour, setHour ] = useState('');
-    const [ hourId, setHourId ] = useState('');
-    const [ isSelected, setIsSelected ] = useState(false);
+    const [active, setActive] = useState([])
 
-    const handleHourClick = (e, day, hour, hourId) => {
-        e.preventDefault();
-        setDay(day)
-        setHour(hour)
-        setHourId(hourId)
-        setIsSelected(!isSelected)
-        updateIsSelected(day, hourId, isSelected)
-    }
-
-    /*
-    console.log('isSelected is ', isSelected)
-    console.log('day is', day)
-    console.log('hour is', hour)
-    console.log('hourId is', hourId)
-    */
+    console.log('active is', active)
 
     return ( 
         <div className="calendar-container">
@@ -34,24 +17,29 @@ const CalendarBox = () => {
             <div className="calendar-content">
                 <h1>Okres czasu: 14.11 - 20.11 (46)</h1>
                 <div className="calendar-days"> 
+                    
                     {calendarData.map((item, weekIndex) => 
                         <div className="day-column" >
                             <h2 key={weekIndex}>{item.dayName}</h2>
-                            {item.hours.map((hour, hourIndex) =>
-                                <button 
-                                    key={hourIndex}
-                                    onClick={(e) => {
-                                        handleHourClick(e, item.dayName, hour.hour, hour.hourId)
-                                    }}
-                                    className=   
-                                    {`hour ${
-                                        day === item.dayName &&
-                                        hourId === hour.hourId &&
-                                        isSelected
-                                        ? "active" : ""}`} 
-                                    >{hour.hour}
-                                </button>           
-                            )}                    
+                            {item.hours.map((button, dayIndex) => {
+                                const isActive = active.includes(button)
+                                return (
+                                    <button
+                                        key={dayIndex}
+                                        onClick={() => setActive(isActive
+                                        ? active.filter(current => current !== button)
+                                        : [...active, button])}
+                                        
+                                        className={`
+                                            hour 
+                                            ${ isActive || button.isSelected ? "active" : "" }
+                                            ${ button.isReserved ? "reserved" : ""}
+                                        `}  
+                                    >
+                                        {button.hour} {button.reserving}
+                                    </button>
+                                )
+                            })}
                         </div>
                     )}  
                 </div>
