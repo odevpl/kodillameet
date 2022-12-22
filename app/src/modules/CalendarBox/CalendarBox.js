@@ -4,7 +4,9 @@ import { useState } from "react";
 
 const CalendarBox = (props) => {
   
-    const { calendarData } = useContext(CalendarContext);
+    const { dayNames, hours } = useContext(CalendarContext);
+
+    console.log('hours is', hours)
 
     const [active, setActive] = useState([])
 
@@ -30,30 +32,32 @@ const CalendarBox = (props) => {
                 <h1>Okres czasu: 14.11 - 20.11 (46)</h1>
                 <div className="calendar-days"> 
                     
-                    {calendarData.map((item, weekIndex) => 
+                    {dayNames.map((item, dayIndex) => 
                         <div className="day-column" >
-                            <h2 key={weekIndex}>{item.dayName}</h2>
-                            {item.hours.map((button, dayIndex) => {
-                                const isActive = active.includes(button)
+                            <h2 key={dayIndex}>{item.longName}</h2>
+                            {hours.map((hour, hourIndex) => {
+                                const isActive = active.includes(hour)
                                 return (
                                     <button
-                                        key={dayIndex}
+                                        key={hourIndex}
                                         onClick={() => setActive(isActive
-                                        ? active.filter(current => current !== button)
-                                        : [...active, button])}
+                                        ? active.filter(current => current !== hour)
+                                        : [...active, hour])}
                                         
                                         className={`
                                             hour 
-                                            ${ isActive || button.isSelected ? "active" : "" }
-                                            ${ button.isReserved ? "reserved" : ""}
+                                            ${ isActive && dayIndex === 0 ? "active" : "" }
+                                            ${ hour.isReserved ? "reserved" : ""}
                                         `}  
                                     >
-                                        {button.hour} {button.reserving}
+                                        {hour} 
                                     </button>
                                 )
                             })}
                         </div>
                     )}  
+
+                    
                 </div>
                 <button>Zapisz tydzień</button>
             </div>
