@@ -1,4 +1,4 @@
-const MessagesBox = () => {
+const MessagesBox = (props) => {
   
     return ( 
         <div className="message-box">
@@ -7,7 +7,7 @@ const MessagesBox = () => {
             <div className="message">
                 <p>Nie ma mnie, zarobiony jestem.</p>
             </div>
-            <button>Edycja</button>
+            <button onClick={props.action}>Edycja</button>
         </div>
     )
 }

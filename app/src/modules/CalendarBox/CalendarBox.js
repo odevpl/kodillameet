@@ -2,7 +2,7 @@ import CalendarContext from "../../providers/CalendarProvider";
 import { useContext } from "react";
 import { useState } from "react";
 
-const CalendarBox = () => {
+const CalendarBox = (props) => {
   
     const { calendarData } = useContext(CalendarContext);
 
@@ -12,8 +12,20 @@ const CalendarBox = () => {
 
     return ( 
         <div className="calendar-container">
-            <h1>Kalendarz</h1>
-            <div className="underline"></div>
+            
+            <div className="calendar-header">
+                <div className="calendar-header-left">
+                    <h1>Kalendarz</h1>
+                    <div className="underline"></div>
+                </div>
+                <div className="calendar-header-right">
+                    <button onClick={props.action}>Dodaj tydzień</button>
+                    <button onClick={props.action}>Dodaj kursanta</button>
+                    <button onClick={props.action}>Umów kursanta</button>
+                    <button onClick={props.action}>Pokaz logi</button>
+                </div>
+            </div>
+
             <div className="calendar-content">
                 <h1>Okres czasu: 14.11 - 20.11 (46)</h1>
                 <div className="calendar-days"> 
