@@ -6,11 +6,15 @@ const CalendarBox = (props) => {
   
     const { dayNames, hours } = useContext(CalendarContext);
 
+    const [active, setActive] = useState([
+        {
+            dayId: 1,
+            hour: '8:30',
+            user: 'Tomasz Karolak'
+        }
+    ])
+
     console.log('hours is', hours)
-
-    const [active, setActive] = useState([])
-
-    console.log('active is', active)
 
     return ( 
         <div className="calendar-container">
@@ -36,28 +40,27 @@ const CalendarBox = (props) => {
                         <div className="day-column" >
                             <h2 key={dayIndex}>{item.longName}</h2>
                             {hours.map((hour, hourIndex) => {
-                                const isActive = active.includes(hour)
+
+                                const isActive = active.find(act => act.hour === hour.hour && act.dayId === dayIndex)
+
                                 return (
                                     <button
                                         key={hourIndex}
                                         onClick={() => setActive(isActive
-                                        ? active.filter(current => current !== hour)
-                                        : [...active, hour])}
-                                        
+                                        ? active.filter((current) => current.hour !== hour.hour || current.dayId !== dayIndex)
+                                        : [...active, {hour: hour.hour, hourId: hourIndex, dayId: dayIndex, user: ''}])}
                                         className={`
-                                            hour 
-                                            ${ isActive && dayIndex === 0 ? "active" : "" }
-                                            ${ hour.isReserved ? "reserved" : ""}
+                                            hour
+                                            ${ isActive ? "active" : "" }
+                                            ${ hour.user ? "reserved" : ""}
                                         `}  
                                     >
-                                        {hour} 
+                                        {hour.hour}{hour.user}
                                     </button>
                                 )
                             })}
                         </div>
                     )}  
-
-                    
                 </div>
                 <button>Zapisz tydzień</button>
             </div>
