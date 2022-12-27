@@ -14,7 +14,7 @@ const CalendarBox = (props) => {
         }
     ])
 
-    console.log('hours is', hours)
+    console.log('active is', active)
 
     return ( 
         <div className="calendar-container">
