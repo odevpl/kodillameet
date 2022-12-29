@@ -1,17 +1,21 @@
 import { dayNames, hours } from "./../../const/dates/dates";
 import { useState } from "react";
 
-const CalendarBox = (props) => {
+const CalendarBox = ({openModal}) => {
 
-    const [active, setActive] = useState([
-        {
-            dayId: 1,
-            hour: '8:30',
-            user: 'Tomasz Karolak'
-        }
-    ])
+    const [active, setActive] = useState([])
+
+    console.log('active is', active)
+
+    const sorted = [...active].sort((a, b) => {
+        return a.hourId - b.hourId;
+    });
+
+    console.log('seortedTwo', sorted)
 
     return ( 
+
+        <>
         <div className="calendar-container">
             <div className="calendar-header">
                 <div className="calendar-header-left">
@@ -19,10 +23,10 @@ const CalendarBox = (props) => {
                     <div className="underline"></div>
                 </div>
                 <div className="calendar-header-right">
-                    <button onClick={props.action}>Dodaj tydzień</button>
-                    <button onClick={props.action}>Dodaj kursanta</button>
-                    <button onClick={props.action}>Umów kursanta</button>
-                    <button onClick={props.action}>Pokaz logi</button>
+                    <button onClick={openModal}>Dodaj tydzień</button>
+                    <button onClick={openModal}>Dodaj kursanta</button>
+                    <button onClick={openModal}>Umów kursanta</button>
+                    <button onClick={openModal}>Pokaz logi</button>
                 </div>
             </div>
 
@@ -42,7 +46,7 @@ const CalendarBox = (props) => {
                                         key={hourIndex}
                                         onClick={() => setActive(isActive
                                         ? active.filter((current) => current.hour !== hour.hour || current.dayId !== dayIndex)
-                                        : [...active, {hour: hour.hour, hourId: hourIndex, dayId: dayIndex, user: ''}])}
+                                        : [...active, {dayId: dayIndex, hourId: hourIndex, hour: hour.hour }])}
                                         className={`
                                             hour
                                             ${ isActive ? "active" : "" }
@@ -59,6 +63,42 @@ const CalendarBox = (props) => {
                 <button>Zapisz tydzień</button>
             </div>
         </div>
+
+        <div className="calendar-container">
+            <div className="calendar-header">
+                <div className="calendar-header-left">
+                    <h1>Kalendarz</h1>
+                    <div className="underline"></div>
+                </div>
+            </div>
+
+            <div className="calendar-content">
+                <h1>Okres czasu: 14.11 - 20.11 (46)</h1>
+                <div className="calendar-days"> 
+                    
+                    {dayNames.map((item, dayIndex) => 
+                        <div className="day-column" >
+                            <h2 key={dayIndex}>{item.longName}</h2>
+                            {sorted.map((userHour, userHourIndex) => {
+                                if(dayIndex === userHour.dayId)                            
+                                return (
+                                    <button
+                                        key={userHourIndex}
+                                        className="hour"
+                                    >
+                                        {userHour.hour}
+                                    </button>                
+                                )
+                            }
+                            )}
+                        </div>
+                    )}  
+                </div>
+                <button>Zapisz tydzień</button>
+            </div>
+        </div>
+
+        </>
     )
 }
 
