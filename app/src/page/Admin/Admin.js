@@ -25,8 +25,8 @@ const Admin = () => {
           </aside>
 
           <section className="admin-content"> 
-            <MessagesBox action={OpenModal}/>
-            <CalendarBox action={OpenModal}/>
+            <MessagesBox />
+            <CalendarBox openModal={OpenModal}/>
           </section>
 
           <Modal toggle={modalState} action={OpenModal}>
