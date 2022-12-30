@@ -1,6 +1,18 @@
 import { useState, useEffect } from "react";
-import { fetchSetting } from "../../helpers/fetchConfig";
-import { get } from "lodash";
+export const fetchSetting = {
+  method: "POST",
+  mode: "cors",
+  cache: "no-cache",
+  credentials: "same-origin",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  redirect: "follow",
+  referrerPolicy: "no-referrer",
+  body: JSON.stringify({
+    filters: {},
+  }),
+};
 
 const LoadingWrapper = (props) => {
   const Component = props.component;
@@ -9,30 +21,13 @@ const LoadingWrapper = (props) => {
     payload: null,
   });
 
-  const fetchSettingWithAccessToken = () => ({
-    ...fetchSetting,
-    headers: {
-      ...fetchSetting.headers,
-      ["access-token"]: `Bearer ${sessionStorage.getItem("accessToken")}`,
-    },
-  });
-
-  const preparedSettings = (parameters) => {
-    const body = {
-      ...parameters,
-      filters: {
-        ...get(props, "filters", {}),
-        ...get(parameters, "filters", {}),
-      },
-      compartments: props.compartments,
-      ...props.bodyParams,
-    };
-
-    return {
-      ...fetchSettingWithAccessToken(),
-      body: JSON.stringify(body),
-    };
-  };
+  const preparedSettings = () =>
+    props.filters
+      ? {
+          ...fetchSetting,
+          body: JSON.stringify({ filters: { ...props.filters } }),
+        }
+      : fetchSetting;
 
   const refreshToken = () => {
     fetch(`${process.env.REACT_APP_API_PATH}/refreshToken`, {
@@ -48,12 +43,13 @@ const LoadingWrapper = (props) => {
         setTimeout(() => {
           fetchData(true);
         }, 2000);
+        // fetchData(true);
       });
   };
 
-  const fetchData = async (force, parameters) => {
+  const fetchData = async (force) => {
     if (!state.isLoaded || force) {
-      await fetch(props.fetch, preparedSettings(parameters))
+      await fetch(props.fetch, preparedSettings())
         .then((response) => response.json())
         .then((res) => {
           if (res.error === "BAD TOKEN") {
@@ -68,8 +64,8 @@ const LoadingWrapper = (props) => {
     }
   };
 
-  useEffect(async () => {
-    await fetchData();
+  useEffect(() => {
+    fetchData();
   }, []);
 
   const activeProps =
@@ -81,23 +77,14 @@ const LoadingWrapper = (props) => {
     <>
       {state.isLoaded ? (
         <Component
-          closeAction={() => {
-            if (props.closeAction) {
-              props.closeAction();
-            } else {
-              const close = get(props, "componentProps.closeAction", () => {});
-              close();
-            }
-          }}
           {...props.componentProps}
           {...activeProps}
+          closeAction={() => {
+            props.closeAction();
+          }}
           forceUpdate={() => {
             fetchData(true);
           }}
-          resendWithParameters={(parameters) => {
-            fetchData(true, parameters);
-          }}
-          setTherapyData={props.setTherapyData}
           payload={state.payload}
         />
       ) : (
