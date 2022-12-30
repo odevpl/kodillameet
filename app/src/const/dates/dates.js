@@ -1,31 +1,38 @@
 export const dayNames = [
     {
         longName: 'Poniedziałek',
-        shortName: 'Pn'
+        shortName: 'Pn',
+        testDate: '30.12.2022'
     },
     {
         longName: 'Wtorek',
-        shortName: 'Wt'
+        shortName: 'Wt',
+        testDate: '31.12.2022'
     },
     {
         longName: 'Środa',
-        shortName: 'Śr'
+        shortName: 'Śr',
+        testDate: '01.01.2023'
     },
     {
         longName: 'Czwartek',
-        shortName: 'Czw'
+        shortName: 'Czw',
+        testDate: '02.01.2023'
     },
     {
         longName: 'Piątek',
-        shortName: 'Pt'
+        shortName: 'Pt',
+        testDate: '03.01.2023'
     },
     {
         longName: 'Sobota',
-        shortName: 'Sb'
+        shortName: 'Sb',
+        testDate: '04.01.2023'
     },
     {
         longName: 'Niedziela',
-        shortName: 'Nd'
+        shortName: 'Nd',
+        testDate: '05.01.2023'
     }
 ]
 

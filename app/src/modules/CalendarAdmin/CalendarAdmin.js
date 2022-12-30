@@ -7,8 +7,7 @@ const CalendarAdmin = ({openModal}) => {
     const { active, setActive, sorted } = useContext(CalendarContext)
 
     const date = new Date().toLocaleDateString();
-    console.log('date is ', date)
-    
+    console.log('date is ', date)    
 
     return ( 
 
@@ -34,6 +33,7 @@ const CalendarAdmin = ({openModal}) => {
                     {dayNames.map((item, dayIndex) => 
                         <div className="day-column" >
                             <h2 key={dayIndex}>{item.longName}</h2>
+                            <h2>{item.testDate}</h2>
                             {hours.map((hour, hourIndex) => {
 
                                 const isActive = active.find(act => act.hour === hour.hour && act.dayId === dayIndex)
@@ -80,12 +80,18 @@ const CalendarAdmin = ({openModal}) => {
                     {dayNames.map((item, dayIndex) => 
                         <div className="day-column" >
                             <h2 key={dayIndex}>{item.longName}</h2>
+                            <h2>{item.testDate}</h2>
                             {sorted.map((userHour, userHourIndex) => {
                                 if(dayIndex === userHour.dayId)                            
                                 return (
                                     <button
                                         key={userHourIndex}
-                                        className="hour"
+                                        className={`
+                                            hour
+                                            ${ item.testDate >= date 
+                                                
+                                                ? "active" : "" }
+                                        `}  
                                     >
                                         {userHour.hour}
                                     </button>                
