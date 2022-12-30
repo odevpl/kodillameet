@@ -1,17 +1,14 @@
-import { dayNames, hours } from "./../../const/dates/dates";
-import { useState } from "react";
+import { dayNames, hours } from "../../const/dates/dates";
+import CalendarContext from "../../providers/CalendarProvider";
+import { useContext } from "react";
 
-const CalendarBox = ({openModal}) => {
+const CalendarAdmin = ({openModal}) => {
 
-    const [active, setActive] = useState([])
+    const { active, setActive, sorted } = useContext(CalendarContext)
 
-    console.log('active is', active)
-
-    const sorted = [...active].sort((a, b) => {
-        return a.hourId - b.hourId;
-    });
-
-    console.log('seortedTwo', sorted)
+    const date = new Date().toLocaleDateString();
+    console.log('date is ', date)
+    
 
     return ( 
 
@@ -44,9 +41,13 @@ const CalendarBox = ({openModal}) => {
                                 return (
                                     <button
                                         key={hourIndex}
-                                        onClick={() => setActive(isActive
+                                        onClick={
+                                            
+                                            () => setActive(isActive
                                         ? active.filter((current) => current.hour !== hour.hour || current.dayId !== dayIndex)
-                                        : [...active, {dayId: dayIndex, hourId: hourIndex, hour: hour.hour }])}
+                                        : [...active, {dayId: dayIndex, hourId: hourIndex, hour: hour.hour }])
+                                    
+                                    }
                                         className={`
                                             hour
                                             ${ isActive ? "active" : "" }
@@ -102,7 +103,7 @@ const CalendarBox = ({openModal}) => {
     )
 }
 
-export default CalendarBox;
+export default CalendarAdmin;
 
 
 

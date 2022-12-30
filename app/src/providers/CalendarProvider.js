@@ -1,14 +1,24 @@
 import { createContext } from "react";
-import { dayNames, hours } from "./../const/dates/dates"
+import { useState } from "react";
 
 const CalendarContext = createContext();
 
 export const CalendarProvider = ({ children }) => {
     
-    // place for hooks, state, functions, etc
+    const [active, setActive] = useState([])
+
+    const sorted = [...active].sort((a, b) => {
+        return a.hourId - b.hourId;
+    });
 
     return (
-        <CalendarContext.Provider value ={{ dayNames, hours }}>{children}</CalendarContext.Provider>
+        <CalendarContext.Provider 
+            value ={{
+                active, 
+                setActive, 
+                sorted}}
+        >{children}
+        </CalendarContext.Provider>
     );
 };
 
