@@ -30,10 +30,6 @@ const CalendarAdmin = ({openModal}) => {
         return dates
     }
 
-    const onClickTest = () => {
-        console.log('click')
-    }
-
     const renderWeek = () => {
         return (
         <div className="calendar-content">
@@ -152,7 +148,7 @@ const CalendarAdmin = ({openModal}) => {
                                             finalColumnDate.diff(finalDateToday, "days") < 0 ||
                                             finalColumnDate.diff(finalDateToday, "days") > 1
                                         }
-                                        onClick={onClickTest}
+                                        
                                     >
                                         {userHour.hour}
                                     </button>                
