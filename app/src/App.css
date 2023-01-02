@@ -50,14 +50,13 @@
 }
 
 .message {
-  background-color: #0f1322;
+  background-color: white;
   margin: 15px 20px 15px 20px;
   border-radius: 15px;
 }
 
 .message-box .textarea {
-  background-color: #0f1322;
-  color: white;
+  background-color: white;
   margin: 20px 20px 15px;
   padding: 20px 0px 0px 20px;
   width: 93%;
@@ -93,6 +92,10 @@
   margin-right: 10px;
 }
 
+.next-week-button {
+  width: 150px;
+}
+
 .calendar-content {
   display: flex;
   flex-direction: column;
@@ -101,12 +104,35 @@
 }
 
 .calendar-content h1 {
-  margin: 40px 0px 30px 0px;
+  margin: 40px 0px 10px 0px;
   padding: 0px;
+}
+
+.calendar-content p {
+  font-size: 16px;
 }
 
 .calendar-content button {
   margin: 0 auto 20px;
+}
+
+.calendar-content-message {
+  padding: 30px;
+  text-align: center;
+}
+
+.calendar-content-message p {
+  font-size: 16px;
+}
+
+.calendar-content-message input {
+  color: white;
+  background-color: inherit;
+  border:1px solid white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  width: 10px;
 }
 
 .calendar-days {
@@ -120,7 +146,7 @@
 }
 
 .day-column h2 {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .day-column .hour {
@@ -212,6 +238,7 @@
 
   .sidebar-content{
     padding-top: 20px;
+    margin-top: 0;
   }
 
   .container {
