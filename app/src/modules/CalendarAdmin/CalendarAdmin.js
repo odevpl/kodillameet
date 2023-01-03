@@ -30,6 +30,10 @@ const CalendarAdmin = ({openModal}) => {
         return dates
     }
 
+    const onClickTest = () => {
+        console.log('click')
+    }
+
     const renderWeek = () => {
         return (
         <div className="calendar-content">
