@@ -8,7 +8,7 @@ const CalendarAdmin = ({openModal}) => {
     const [showCalendar, setShowCalendar] = useState(false);
     const [weekNumber, setWeekNumber] = useState('');
 
-    const date = new Date();    
+    const date = new Date();  
     const currentYear = moment(date).format('Y');
     const currentWeek = moment(date).format('w');
 
@@ -30,13 +30,16 @@ const CalendarAdmin = ({openModal}) => {
         return dates
     }
 
+    const onClickTest = () => {
+        console.log('click')
+    }
+
     const renderWeek = () => {
         return (
         <div className="calendar-content">
                 <h1>Kalendarz 1</h1>
                 <p>Numer tygodnia: {weekNumber}</p>
                 <div className="calendar-days"> 
-                    
                     {dayNames.map((item, dayIndex) => 
                         <div className="day-column" >
                             <h2 key={dayIndex}>{item.longName}</h2>   
@@ -71,6 +74,8 @@ const CalendarAdmin = ({openModal}) => {
         )
     }
 
+    // actuall code starts here
+
     return ( 
 
         <>
@@ -95,54 +100,59 @@ const CalendarAdmin = ({openModal}) => {
                     <button onClick={openModal}>Pokaz logi</button>
                 </div>
             </div>
-            {showCalendar ? 
-            renderWeek() : 
-            <div className="calendar-content-message">
-                <h1>Brak aktywnych kalendarzy</h1>
-                <p>Numer aktualnego tygodnia to: {currentWeek}</p>
-                <p>Utwórz kalendarz dla tygodnia nr:  
-                    <input
-                        type="text"
-                        name="weekNumber"
-                        onChange={weekNumberChange}
-                    /></p>
-                <button onClick={addCalendar}>Utwórz</button>
-                
-            </div>
-    
-            }
+                {showCalendar ? 
+                    renderWeek() : 
+                    <div className="calendar-content-message">
+                        <h1>Brak aktywnych kalendarzy</h1>
+                        <p>Numer aktualnego tygodnia to: {currentWeek}</p>
+                        <p>Utwórz kalendarz dla tygodnia nr:  
+                            <input
+                                type="text"
+                                name="weekNumber"
+                                onChange={weekNumberChange}
+                            /></p>
+                        <button onClick={addCalendar}>Utwórz</button>
+                    </div>
+                }
         </div>
 
         <div className="calendar-container">
-            <div className="calendar-header">
-                <div className="calendar-header-left">
-                    <h1>Kalendarz</h1>
-                    <div className="underline"></div>
-                </div>
-            </div>
-
             <div className="calendar-content">
                 <h1>Kalendarz testowy uzytkownika</h1>
                 <p>Nr tygodnia: {weekNumber}</p>
                 <div className="calendar-days"> 
-                    
-                    {dayNames.map((item, dayIndex) => 
+                    {dayNames.map((item, dayIndex) =>   
                         <div className="day-column" >
                             <h2 key={dayIndex}>{item.longName}</h2>
                             <h2>  
                                 {moment(getDateOfStartOfTheWeek(weekNumber)).add(dayIndex, "day").format(`DD/MM/YYYY`)}
                             </h2>  
                             {sorted.map((userHour, userHourIndex) => {
-                                if(dayIndex === userHour.dayId)                            
+    
+                                const columnDate = moment(getDateOfStartOfTheWeek(weekNumber)).add(dayIndex, "day");
+                           
+                                const finalDateToday = moment(new Date(date))
+                                const finalColumnDate = moment(new Date(columnDate), "DD/MM/YYYY")
+                           
+                                if(dayIndex === userHour.dayId)  
+
                                 return (
                                     <button
                                         key={userHourIndex}
                                         className={`
                                             hour
-                                            ${ item.testDate >= date 
-                                                
-                                                ? "active" : "" }
+                                            ${ 
+                                                finalColumnDate.diff(finalDateToday, "days") > -1 && 
+                                                finalColumnDate.diff(finalDateToday, "days") < 2
+                                                ? "active" : "" 
+                                            }
                                         `}  
+                                        disabled={
+                                            finalColumnDate.diff(finalDateToday, "days") > -3 && 
+                                            finalColumnDate.diff(finalDateToday, "days") < 0 ||
+                                            finalColumnDate.diff(finalDateToday, "days") > 1
+                                        }
+                                        onClick={onClickTest}
                                     >
                                         {userHour.hour}
                                     </button>                
