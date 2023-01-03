@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import MessagesBox from '../../modules/MessagesBox/MessagesBox';
-import CalendarBox from '../../modules/CalendarBox/CalendarBox';
+import MessagesAdmin from '../../modules/MessagesAdmin/MessagesAdmin';
+import CalendarAdmin from '../../modules/CalendarAdmin/CalendarAdmin';
 import Modal from '../../modules/Modal/Modal';
 
 const Admin = () => {
@@ -25,8 +25,8 @@ const Admin = () => {
           </aside>
 
           <section className="admin-content"> 
-            <MessagesBox action={OpenModal}/>
-            <CalendarBox action={OpenModal}/>
+            <MessagesAdmin />
+            <CalendarAdmin openModal={OpenModal}/>
           </section>
 
           <Modal toggle={modalState} action={OpenModal}>

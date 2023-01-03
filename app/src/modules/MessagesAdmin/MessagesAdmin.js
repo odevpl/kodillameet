@@ -1,14 +1,12 @@
 import { useState } from "react";
 
-const MessagesBox = () => {
+const MessagesAdmin = () => {
   
     const [message, setMessage] = useState('')
 
     const hanldeMessageChange = event => {
         setMessage(event.target.value)
     }
-
-    console.log('message', message)
 
     return ( 
         <div className="message-box">
@@ -28,7 +26,7 @@ const MessagesBox = () => {
     )
 }
 
-export default MessagesBox;
+export default MessagesAdmin;
 
 
 
