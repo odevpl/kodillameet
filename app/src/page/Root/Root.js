@@ -12,7 +12,7 @@ const Root = () => {
           fetch={`${process.env.REACT_APP_API_PATH}/terms`}
           component={Admin}
         />
-        {windowHash == 1 ? <div>aaa</div> : <User />}
+        {windowHash == 1 ? <Admin /> : <User />}
       </div>
     </main>
   );
