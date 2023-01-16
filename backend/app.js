@@ -54,7 +54,7 @@ app.post("/terms", (req, res) => {
   
 })
 
-app.listen(8801, () => {
-  console.log(`Backend works! Listening on 8801`);
+app.listen(8803, () => {
+  console.log(`Backend works! Listening on 8803`);
 }); 
 >>>>>>> a5d7896 (Change get and post methods)
