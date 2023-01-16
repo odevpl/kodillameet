@@ -1,6 +1,7 @@
 import { dayNames, hours } from "../../const/dates/dates";
 import React, { useState } from "react";
-import moment from 'moment'
+import moment from 'moment';
+import axios from 'axios';
 
 const CalendarAdmin = ({openModal}) => {
 
@@ -12,9 +13,13 @@ const CalendarAdmin = ({openModal}) => {
     const currentYear = moment(date).format('Y');
     const currentWeek = moment(date).format('w');
 
-    const sorted = [...active].sort((a, b) => {
+    console.log('current year', currentYear)
+
+    const sortedTerms = [...active].sort((a, b) => {
         return a.hourId - b.hourId;
     });
+
+    console.log('sorted is', sortedTerms)
 
     const addCalendar = () => {
         setShowCalendar(true);
@@ -28,6 +33,15 @@ const CalendarAdmin = ({openModal}) => {
         let dates = new Date(currentYear, 0, (1 + (weekNumber - 1) * 7)); 
         dates.setDate(dates.getDate() + (1 - dates.getDay())); 
         return dates
+    }
+
+    const saveWeek = async e => {
+        e.preventDefault()
+        try {
+            await axios.post("http://localhost:8801/terms", sortedTerms)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const onClickTest = () => {
@@ -54,7 +68,13 @@ const CalendarAdmin = ({openModal}) => {
                                         onClick={                                           
                                             () => setActive(isActive
                                         ? active.filter((current) => current.hour !== hour.hour || current.dayId !== dayIndex)
-                                        : [...active, {dayId: dayIndex, hourId: hourIndex, hour: hour.hour }])                                  
+                                        : [...active, {
+                                            year: currentYear,
+                                            user_uuid: 2,
+                                            dayId: dayIndex, 
+                                            hourId: hourIndex, 
+                                            hour: hour.hour, 
+                                        }])                                  
                                     }
                                         className={`
                                             hour
@@ -69,7 +89,7 @@ const CalendarAdmin = ({openModal}) => {
                         </div>
                     )}  
                 </div>
-                <button>Zapisz tydzień</button>
+                <button onClick={saveWeek}>Zapisz tydzień</button>
             </div>
         )
     }
@@ -127,7 +147,7 @@ const CalendarAdmin = ({openModal}) => {
                             <h2>  
                                 {moment(getDateOfStartOfTheWeek(weekNumber)).add(dayIndex, "day").format(`DD/MM/YYYY`)}
                             </h2>  
-                            {sorted.map((userHour, userHourIndex) => {
+                            {sortedTerms.map((userHour, userHourIndex) => {
 
                                 const columnDate = moment(getDateOfStartOfTheWeek(weekNumber)).add(dayIndex, "day");
 
