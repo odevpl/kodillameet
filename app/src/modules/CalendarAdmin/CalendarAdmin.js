@@ -38,7 +38,7 @@ const CalendarAdmin = ({openModal}) => {
     const saveWeek = async e => {
         e.preventDefault()
         try {
-            await axios.post("http://localhost:8803/terms", sortedTerms)
+            await axios.post("http://localhost:8807/terms", sortedTerms)
         } catch (err) {
             console.log(err)
         }
