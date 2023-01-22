@@ -5,8 +5,8 @@ dotenv.config();
 
 const app = require("./appIndex");
 
-app.set("port", process.env.PORT || 8082);
+app.set("port", process.env.PORT || 8080);
 
-app.listen(8082, () => {
-  console.log(`Listening on 8081`);
+app.listen(8080, () => {
+  console.log(`Listening on 8080`);
 });
