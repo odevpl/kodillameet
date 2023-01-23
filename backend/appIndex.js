@@ -9,7 +9,7 @@ const path = require("path");
 const app = express();
 
 app.use(fileUpload({ createParentPath: true }));
-app.use(cors({ origin: "*" }));
+app.use(cors());
 app.use("/avatars", express.static(path.join(__dirname, "/uploads/avatars")));
 
 app.use(

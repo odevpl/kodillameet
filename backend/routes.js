@@ -7,7 +7,11 @@ try {
   router.post("/terms", TermsController.getTerms);
 
   router.post("/*", (req, res) => res.json({ table: [] }));
+
 } catch (error) {
   console.log("Sorry... some problem", error);
 }
+
+
+
 module.exports = router;

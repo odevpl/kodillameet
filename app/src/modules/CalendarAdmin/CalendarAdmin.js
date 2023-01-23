@@ -1,6 +1,7 @@
 import { dayNames, hours } from "../../const/dates/dates";
-import React, { useState } from "react";
-import moment from 'moment'
+import React, { useEffect, useState } from "react";
+import moment from 'moment';
+import axios from 'axios'
 
 const CalendarAdmin = ({openModal}) => {
 
@@ -33,6 +34,31 @@ const CalendarAdmin = ({openModal}) => {
     const onClickTest = () => {
         console.log('click')
     }
+
+    // fetch functions below
+
+    useEffect(() => {
+        const fetchAllBooks = async () => {
+            try {
+            const res = await axios.post("http://localhost:8080/terms")
+            console.log(res)
+            } catch(err) {
+            console.log(err)
+            }
+        }
+        fetchAllBooks()
+    })
+
+    const saveWeek = async e => {
+        e.preventDefault()
+        try {
+            await axios.post("http://localhost:8080/*", active)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    // end of fetch functions
 
     const renderWeek = () => {
         return (
@@ -69,7 +95,7 @@ const CalendarAdmin = ({openModal}) => {
                         </div>
                     )}  
                 </div>
-                <button>Zapisz tydzień</button>
+                <button onClick={saveWeek}>Zapisz tydzień</button>
             </div>
         )
     }
