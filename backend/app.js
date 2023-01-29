@@ -1,3 +1,20 @@
+/* Oryginalny backend
+
+const express = require("express");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const app = require("./appIndex");
+
+app.set("port", process.env.PORT || 8081);
+
+app.listen(8081, () => {
+  console.log(`Listening on 8081`);
+});
+
+*/
+
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors")
@@ -33,30 +50,7 @@ app.get("/terms", (req, res) => {
   })
 })
 
-app.post("/terms", (req, res) => {
-
-  console.log('req.body is', req.body)
-  const q =  "INSERT INTO terms (year, user_uuid, dayId, hourId, hour) VALUES ?"
-  const bulkValues = req.body.map((values) => [
-    values.year,
-    values.user_uuid,
-    values.dayId,
-    values.hourId,
-    values.hour,
-  ]);
-
-  console.log('req.body is', bulkValues)
-
-  db.query(q, [bulkValues], (err, data) => {
-      console.log('data is', data)
-      console.log('error is', err)
-      if(err) return res.json(err)
-      return res.json(data)
-  })
-  
-})
-
-app.listen(8807, () => {
-  console.log(`Backend works! Listening on 8807`);
+app.listen(8081, () => {
+  console.log(`Backend works! Listening on 8081`);
 }); 
 >>>>>>> a5d7896 (Change get and post methods)
