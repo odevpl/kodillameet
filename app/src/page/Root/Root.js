@@ -8,7 +8,14 @@ const Root = () => {
   return (
     <main>
       <div>
+        <LoadingWrapper
+          fetch={`${process.env.REACT_APP_API_PATH}/terms`}
+          component={Admin}
+        />
         {windowHash == 1 ? <Admin /> : <User />}
+        
+        
+
       </div>
     </main>
   );
