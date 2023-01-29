@@ -8,7 +8,6 @@ const Root = () => {
   return (
     <main>
       <div>
-
         {windowHash == 1 ? <Admin /> : <User />}
       </div>
     </main>
