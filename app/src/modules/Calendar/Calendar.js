@@ -1,13 +1,28 @@
 import { dayNames, hours } from "../../const/dates/dates";
-import { useEffect, useState } from "react";
-import moment from 'moment';
-import axios from 'axios'
+import React, { useState } from "react";
+import moment from 'moment'
+import Modal from '../../modules/Modal/Modal';
+import { v4 as uuidv4 } from 'uuid';
 
 const Calendar = ({openModal}) => {
 
-    const [active, setActive] = useState([])
+    const [active, setActive] = useState([]);
     const [showCalendar, setShowCalendar] = useState(false);
     const [weekNumber, setWeekNumber] = useState('');
+    const [modalState, setModalState] = useState(false);
+    const [secondModalState, setSecondModalState] = useState(false);
+
+    const uuid = uuidv4();
+    const short_uuid = uuid.slice(0,8);
+    const url = window.location.href;
+    const editedurl = url.slice(0, -1);
+
+    const [newUser, setNewUser] = useState({
+        name: "",
+        surname: "",
+        course: "",
+        uuid: short_uuid
+    })
 
     const date = new Date();  
     const currentYear = moment(date).format('Y');
@@ -31,21 +46,19 @@ const Calendar = ({openModal}) => {
         return dates
     }
 
-    // fetch function
+    const OpenModal = () => {
+        setModalState(!modalState)
+    }
 
-    useEffect(() => {
-        const fetchAllTerms = async () => {
-            try {
-            const res = await axios.get("http://localhost:8081/terms")
-            setActive(res.data)
-            } catch(err) {
-            console.log('err is', err)
-            }
-        }
-        fetchAllTerms();
-    }, []);
+    const handleUserFormChange = (e) => {
+        setNewUser((prev) => ({...prev, [e.target.name]: e.target.value }))
+    }
 
-    // function rendering new week
+    const handleUserFormClick = e => {
+        e.preventDefault()
+        setSecondModalState(!secondModalState)
+        setModalState(false)
+    }
 
     const renderWeek = () => {
         return (
@@ -109,7 +122,7 @@ const Calendar = ({openModal}) => {
                         </button> :
                         <div />
                     }
-                    <button onClick={openModal}>Dodaj kursanta</button>
+                    <button onClick={OpenModal}>Dodaj kursanta</button>
                     <button onClick={openModal}>Umów kursanta</button>
                     <button onClick={openModal}>Pokaz logi</button>
                 </div>
@@ -231,6 +244,54 @@ const Calendar = ({openModal}) => {
             </div>
         </div>
 
+        <Modal toggle={modalState} action={OpenModal}>
+            <div className="userReg-container">
+                <form className="userReg-form">
+                    <h1>Dodaj nowego użytkownika</h1>
+                    <label>
+                        Imię:
+                        <input 
+                            type="text" 
+                            name="name"
+                            onChange={handleUserFormChange}
+                        ></input>
+                    </label>
+                    <label>
+                        Nazwisko:
+                        <input 
+                            type="text" 
+                            name="surname"
+                            onChange={handleUserFormChange}
+                        ></input>
+                    </label>
+                    <label>
+                        Kurs: 
+                        <select 
+                            name="course" 
+                            onChange={handleUserFormChange}>
+                                <option>HTML</option>
+                                <option>Python</option>
+                        </select>
+                    </label>
+
+                    <button onClick={handleUserFormClick}>Dodaj</button>
+                </form>
+            </div>
+        </Modal>
+
+        <Modal toggle={secondModalState} action={handleUserFormClick}>
+            <div className="userReg-container">
+                <form className="userReg-form">
+                    <h1>Nowy user dodany do bazy!</h1>
+                    <p>Imię: {newUser.name}</p>
+                    <p>Nazwisko: {newUser.surname}</p>
+                    <p>Kurs: {newUser.course}</p>
+                    <p>ID: {editedurl}{newUser.uuid}</p>
+                </form>
+            </div>
+        </Modal>
+
+        
         </>
     )
 }

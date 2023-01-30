@@ -28,7 +28,7 @@ const Admin = ({ payload }) => {
             <Calendar openModal={OpenModal}/>
           </section>
 
-          <Modal toggle={modalState} action={OpenModal}>
+          <Modal toggle={modalState} >
             Hello
           </Modal>
 
