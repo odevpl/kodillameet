@@ -24,6 +24,8 @@ const Calendar = ({openModal}) => {
         uuid: short_uuid
     })
 
+    console.log('new user is', newUser)
+
     const date = new Date();  
     const currentYear = moment(date).format('Y');
     const currentWeek = moment(date).format('w');
