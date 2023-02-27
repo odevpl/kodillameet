@@ -13,6 +13,9 @@ const Root = () => {
           component={Admin}
         />
         {windowHash == 1 ? <Admin /> : <User />}
+        
+        
+
       </div>
     </main>
   );

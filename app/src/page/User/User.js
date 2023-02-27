@@ -1,7 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import MessagesUser from '../../modules/MessagesUser/MessagesUser';
-import CalendarUser from '../../modules/CalendarUser/CalendarUser';
 
 const User = () => {
 
@@ -16,10 +14,7 @@ const User = () => {
             </div>
           </aside>
 
-          <section className="admin-content"> 
-            <MessagesUser />
-            <CalendarUser />
-          </section>
+          <section className="admin-content"></section>
 
         </div>  
       </main>

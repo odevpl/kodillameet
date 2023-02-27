@@ -1,8 +1,9 @@
 import { dayNames, hours } from "../../const/dates/dates";
-import React, { useState } from "react";
-import moment from 'moment'
+import { useEffect, useState } from "react";
+import moment from 'moment';
+import axios from 'axios'
 
-const CalendarAdmin = ({openModal}) => {
+const Calendar = ({openModal}) => {
 
     const [active, setActive] = useState([])
     const [showCalendar, setShowCalendar] = useState(false);
@@ -30,9 +31,21 @@ const CalendarAdmin = ({openModal}) => {
         return dates
     }
 
-    const onClickTest = () => {
-        console.log('click')
-    }
+    // fetch function
+
+    useEffect(() => {
+        const fetchAllTerms = async () => {
+            try {
+            const res = await axios.get("http://localhost:8081/terms")
+            setActive(res.data)
+            } catch(err) {
+            console.log('err is', err)
+            }
+        }
+        fetchAllTerms();
+    }, []);
+
+    // function rendering new week
 
     const renderWeek = () => {
         return (
@@ -47,7 +60,9 @@ const CalendarAdmin = ({openModal}) => {
                                 {moment(getDateOfStartOfTheWeek(weekNumber)).add(dayIndex, "day").format(`DD/MM/YYYY`)}
                             </h2>                           
                             {hours.map((hour, hourIndex) => {
+
                                 const isActive = active.find(act => act.hour === hour.hour && act.dayId === dayIndex)
+
                                 return (
                                     <button
                                         key={hourIndex}
@@ -59,10 +74,9 @@ const CalendarAdmin = ({openModal}) => {
                                         className={`
                                             hour
                                             ${ isActive ? "active" : "" }
-                                            ${ hour.user ? "reserved" : ""}
                                         `}  
                                     >
-                                        {hour.hour}{hour.user}
+                                        {hour.hour}
                                     </button>
                                 )
                             })}
@@ -74,7 +88,7 @@ const CalendarAdmin = ({openModal}) => {
         )
     }
 
-    // actuall code starts here
+    // views
 
     return ( 
 
@@ -83,7 +97,7 @@ const CalendarAdmin = ({openModal}) => {
         <div className="calendar-container">
             <div className="calendar-header">
                 <div className="calendar-header-left">
-                    <h1>Kalendarz</h1>
+                    <h1>Wybierz godziny i zapisz tydzień</h1>
                     <div className="underline"></div>
                 </div>
                 <div className="calendar-header-right">
@@ -111,14 +125,66 @@ const CalendarAdmin = ({openModal}) => {
                                 name="weekNumber"
                                 onChange={weekNumberChange}
                             /></p>
-                        <button onClick={addCalendar}>Utwórz</button>
+                        <button onClick={addCalendar}>Utwórz nowy</button>
                     </div>
                 }
         </div>
 
         <div className="calendar-container">
             <div className="calendar-content">
-                <h1>Kalendarz testowy uzytkownika</h1>
+                <h1>Gotowy kalendarz - widok admina</h1>
+                <p>Nr tygodnia: {weekNumber}</p>
+                <div className="calendar-days"> 
+                    {dayNames.map((item, dayIndex) =>   
+                        <div className="day-column" >
+                            <h2 key={dayIndex}>{item.longName}</h2>
+                            <h2>  
+                                {moment(getDateOfStartOfTheWeek(weekNumber)).add(dayIndex, "day").format(`DD/MM/YYYY`)}
+                            </h2>  
+                            {sorted.map((userHour, userHourIndex) => {
+
+                                const columnDate = moment(getDateOfStartOfTheWeek(weekNumber)).add(dayIndex, "day");
+                                const finalDateToday = moment(new Date(date))
+                                const finalColumnDate = moment(new Date(columnDate), "DD/MM/YYYY")
+
+                                if(dayIndex === userHour.dayId)  
+
+                                return (
+                                    <button
+                                        key={userHourIndex}
+                                        className={`
+                                            hour 
+                                            ${ 
+                                                finalColumnDate.diff(finalDateToday, "days") > -1 && 
+                                                finalColumnDate.diff(finalDateToday, "days") < 2
+                                                ? "active" : "" 
+                                            }
+                                            ${ userHour.user_type === "HTML" ? "reserved-html" : ""}
+                                            ${ userHour.user_type === "Python" ? "reserved-python" : ""}
+                                            
+                                        `}  
+                                        disabled={
+                                            finalColumnDate.diff(finalDateToday, "days") > -3 && 
+                                            finalColumnDate.diff(finalDateToday, "days") < 0 ||
+                                            finalColumnDate.diff(finalDateToday, "days") > 1
+                                        }
+                                        
+                                    >
+                                        {userHour.hour} {userHour.user_name}
+                                    </button>                
+                                )
+                            }
+                            )}
+                        </div>
+                    )}  
+                </div>
+                <button>Zaktualizuj</button>
+            </div>
+        </div>
+
+        <div className="calendar-container">
+            <div className="calendar-content">
+                <h1>Gotowy kalendarz - widok usera</h1>
                 <p>Nr tygodnia: {weekNumber}</p>
                 <div className="calendar-days"> 
                     {dayNames.map((item, dayIndex) =>   
@@ -134,7 +200,7 @@ const CalendarAdmin = ({openModal}) => {
                                 const finalDateToday = moment(new Date(date))
                                 const finalColumnDate = moment(new Date(columnDate), "DD/MM/YYYY")
 
-                                if(dayIndex === userHour.dayId)  
+                                if(dayIndex === userHour.dayId && !userHour.user_name)  
 
                                 return (
                                     <button
@@ -162,7 +228,6 @@ const CalendarAdmin = ({openModal}) => {
                         </div>
                     )}  
                 </div>
-                <button>Zapisz tydzień</button>
             </div>
         </div>
 
@@ -170,4 +235,4 @@ const CalendarAdmin = ({openModal}) => {
     )
 }
 
-export default CalendarAdmin;
+export default Calendar;

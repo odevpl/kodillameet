@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const MessagesAdmin = () => {
+const Messages = () => {
   
     const [message, setMessage] = useState('')
 
@@ -26,7 +26,7 @@ const MessagesAdmin = () => {
     )
 }
 
-export default MessagesAdmin;
+export default Messages;
 
 
 

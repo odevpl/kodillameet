@@ -181,15 +181,19 @@
   color: white;
 }
 
-.day-column:hover .reserved {
-  background-color: #0f1322;
-}
-
-.day-column .reserved {
+.day-column .reserved-html {
   background-color: #0f1322;
   font-size: 10px;
   color: white;
 }
+
+.day-column .reserved-python {
+  background-color: #474043;
+  font-size: 10px;
+  color: white;
+}
+
+
 
 /* modal */
 
