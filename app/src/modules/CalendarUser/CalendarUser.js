@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 const CalendarUser = () => {
 
-    const { sorted } = useContext(CalendarContext);
+    //const { sorted } = useContext(CalendarContext);
 
     return ( 
         <></>
